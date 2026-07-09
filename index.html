@@ -557,7 +557,6 @@
         await fetch(FORM_URL, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, toppings }),
         });
         status.textContent = 'Got it! See you Saturday \u{1F355}';
