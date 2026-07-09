@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Night — You're Invited!</title>
+  <meta name="description" content="You're invited to Pizza Night! Saturday 7/11/26 at 5:30 PM, hosted by Raynah.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Righteous&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --neon-red: #ff3c3c;
+      --neon-green: #39ff14;
+      --neon-yellow: #ffe14d;
+      --neon-pink: #ff6eb4;
+      --dark-bg: #1a0a0a;
+      --dark-surface: #2a1212;
+      --cream: #fff5e6;
+      --check-red: #c0392b;
+      --check-white: #f5e6d3;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating pizza slices */
+    .pizza-float {
+      position: fixed;
+      z-index: 0;
+      opacity: 0.08;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 0.08; }
+      90% { opacity: 0.08; }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Checkered border */
+    .checkered-border {
+      width: 100%;
+      height: 24px;
+      background: repeating-conic-gradient(
+        var(--check-red) 0% 25%, var(--check-white) 0% 50%
+      ) 0 0 / 24px 24px;
+      opacity: 0;
+      animation: fadeSlideIn 0.8s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .checkered-border.bottom {
+      animation-delay: 2.5s;
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    /* Neon sign frame */
+    .neon-frame {
+      border: 3px solid rgba(255, 60, 60, 0.3);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      box-shadow:
+        inset 0 0 30px rgba(255, 60, 60, 0.05),
+        0 0 30px rgba(255, 60, 60, 0.1);
+      animation: frameGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes frameGlow {
+      0% { box-shadow: inset 0 0 30px rgba(255, 60, 60, 0.05), 0 0 30px rgba(255, 60, 60, 0.1); }
+      100% { box-shadow: inset 0 0 40px rgba(255, 60, 60, 0.1), 0 0 50px rgba(255, 60, 60, 0.15); }
+    }
+
+    /* "You're invited to" */
+    .invite-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.6rem;
+      color: var(--neon-green);
+      text-shadow:
+        0 0 7px var(--neon-green),
+        0 0 20px var(--neon-green),
+        0 0 40px rgba(57, 255, 20, 0.4);
+      opacity: 0;
+      animation: glowIn 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes glowIn {
+      0% {
+        opacity: 0;
+        text-shadow: none;
+        transform: scale(0.9);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        text-shadow:
+          0 0 7px var(--neon-green),
+          0 0 20px var(--neon-green),
+          0 0 40px rgba(57, 255, 20, 0.4);
+        transform: scale(1);
+      }
+    }
+
+    /* PIZZA NIGHT neon title */
+    .neon-title {
+      font-family: 'Righteous', cursive;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      line-height: 1.1;
+      color: var(--neon-red);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow:
+        0 0 7px var(--neon-red),
+        0 0 20px var(--neon-red),
+        0 0 42px var(--neon-red),
+        0 0 80px rgba(255, 60, 60, 0.4);
+      opacity: 0;
+      animation: neonFlicker 2s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    @keyframes neonFlicker {
+      0% { opacity: 0; text-shadow: none; }
+      10% { opacity: 0.8; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red); }
+      12% { opacity: 0.2; text-shadow: none; }
+      20% { opacity: 0.9; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red), 0 0 42px var(--neon-red); }
+      23% { opacity: 0.4; text-shadow: 0 0 7px var(--neon-red); }
+      35% { opacity: 1; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red), 0 0 42px var(--neon-red); }
+      37% { opacity: 0.7; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red); }
+      40% {
+        opacity: 1;
+        text-shadow:
+          0 0 7px var(--neon-red),
+          0 0 20px var(--neon-red),
+          0 0 42px var(--neon-red),
+          0 0 80px rgba(255, 60, 60, 0.4);
+      }
+      100% {
+        opacity: 1;
+        text-shadow:
+          0 0 7px var(--neon-red),
+          0 0 20px var(--neon-red),
+          0 0 42px var(--neon-red),
+          0 0 80px rgba(255, 60, 60, 0.4);
+      }
+    }
+
+    /* Neon breathing after flicker */
+    .neon-title.on {
+      animation: neonBreathe 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonBreathe {
+      0% {
+        text-shadow:
+          0 0 7px var(--neon-red),
+          0 0 20px var(--neon-red),
+          0 0 42px var(--neon-red),
+          0 0 80px rgba(255, 60, 60, 0.4);
+      }
+      100% {
+        text-shadow:
+          0 0 10px var(--neon-red),
+          0 0 30px var(--neon-red),
+          0 0 60px var(--neon-red),
+          0 0 100px rgba(255, 60, 60, 0.5);
+      }
+    }
+
+    /* Divider line */
+    .neon-divider {
+      width: 120px;
+      height: 2px;
+      background: var(--neon-yellow);
+      box-shadow: 0 0 8px var(--neon-yellow), 0 0 20px rgba(255, 225, 77, 0.4);
+      margin: 0.5rem auto;
+      opacity: 0;
+      animation: fadeSlideIn 0.6s ease forwards;
+      animation-delay: 2s;
+    }
+
+    /* Event details */
+    .detail {
+      opacity: 0;
+      animation: fadeSlideIn 0.7s ease forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .detail-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255, 245, 230, 0.5);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-value {
+      font-family: 'Righteous', cursive;
+      font-size: 1.3rem;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 10px rgba(255, 225, 77, 0.3);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .detail:nth-child(1) { animation-delay: 2.2s; }
+    .detail:nth-child(2) { animation-delay: 2.5s; }
+
+    /* Host section */
+    .host-section {
+      opacity: 0;
+      animation: fadeSlideIn 0.7s ease forwards;
+      animation-delay: 2.8s;
+    }
+
+    .hosted-by {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255, 245, 230, 0.5);
+      margin-bottom: 0.3rem;
+    }
+
+    .host-name {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: var(--neon-pink);
+      text-shadow:
+        0 0 7px var(--neon-pink),
+        0 0 20px rgba(255, 110, 180, 0.4);
+    }
+
+    /* Address section */
+    .address-section {
+      opacity: 0;
+      animation: fadeSlideIn 0.7s ease forwards;
+      animation-delay: 3.1s;
+    }
+
+    .address-icon {
+      display: inline-block;
+      margin-bottom: 0.3rem;
+    }
+
+    .address-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(255, 245, 230, 0.8);
+    }
+
+    .address-text a {
+      color: rgba(255, 245, 230, 0.8);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255, 245, 230, 0.3);
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .address-text a:hover {
+      color: var(--neon-yellow);
+      border-color: var(--neon-yellow);
+    }
+
+    /* Pizza SVG slice */
+    .pizza-svg {
+      fill: var(--neon-red);
+    }
+
+    /* Footer */
+    .footer-pizza {
+      opacity: 0;
+      animation: fadeSlideIn 0.7s ease forwards;
+      animation-delay: 3.4s;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .footer-pizza span {
+      font-size: 1.5rem;
+      display: inline-block;
+      animation: wiggle 2s ease-in-out infinite;
+    }
+
+    .footer-pizza span:nth-child(2) { animation-delay: 0.3s; }
+    .footer-pizza span:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-8deg); }
+      75% { transform: rotate(8deg); }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      .container { padding: 2rem 1rem; }
+      .neon-frame { padding: 2rem 1.2rem; }
+      .details-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .invite-text { font-size: 1.3rem; }
+      .host-name { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checkered-border"></div>
+
+  <!-- Floating pizza slices (generated by JS) -->
+
+  <div class="container">
+    <div class="neon-frame">
+      <p class="invite-text">You're invited to</p>
+      <h1 class="neon-title" id="neonTitle">Pizza<br>Night</h1>
+      <div class="neon-divider"></div>
+    </div>
+
+    <div class="details-grid">
+      <div class="detail">
+        <div class="detail-label">When</div>
+        <div class="detail-value">Saturday<br>July 11, 2026</div>
+      </div>
+      <div class="detail">
+        <div class="detail-label">Time</div>
+        <div class="detail-value">5:30 PM</div>
+      </div>
+    </div>
+
+    <div class="host-section">
+      <div class="hosted-by">Hosted by</div>
+      <div class="host-name">Raynah</div>
+    </div>
+
+    <div class="address-section">
+      <div class="address-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--neon-yellow); filter: drop-shadow(0 0 4px rgba(255,225,77,0.4));">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div class="address-text">
+        <a href="https://maps.google.com/?q=4250+Woodlake+Place+%23109+Raleigh+NC+27607" target="_blank" rel="noopener">
+          4250 Woodlake Place #109<br>
+          Raleigh, NC 27607
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-pizza">
+      <span>&#127829;</span>
+      <span>&#127829;</span>
+      <span>&#127829;</span>
+    </div>
+  </div>
+
+  <div class="checkered-border bottom"></div>
+
+  <script>
+    // Switch neon title to breathing animation after flicker completes
+    const title = document.getElementById('neonTitle');
+    setTimeout(() => title.classList.add('on'), 3400);
+
+    // Generate floating pizza slice SVGs
+    function createFloatingPizza() {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 60 60');
+      svg.classList.add('pizza-float');
+      svg.innerHTML = '<path d="M30 5 L55 50 Q30 45 5 50 Z" fill="#ff3c3c"/><circle cx="22" cy="35" r="3" fill="#ffe14d"/><circle cx="35" cy="30" r="3" fill="#ffe14d"/><circle cx="28" cy="22" r="2.5" fill="#ffe14d"/>';
+
+      const size = 30 + Math.random() * 50;
+      svg.style.width = size + 'px';
+      svg.style.height = size + 'px';
+      svg.style.left = Math.random() * 100 + 'vw';
+      svg.style.animationDuration = (15 + Math.random() * 25) + 's';
+      svg.style.animationDelay = Math.random() * 20 + 's';
+
+      document.body.appendChild(svg);
+    }
+
+    for (let i = 0; i < 12; i++) createFloatingPizza();
+  </script>
+</body>
+</html>
