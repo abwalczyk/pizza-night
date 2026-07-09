@@ -210,6 +210,88 @@
       100% { opacity: 1; transform: translate(4px, -6px) rotate(1deg); }
     }
 
+    /* What to expect modal */
+    .expect-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background: rgba(58, 28, 28, 0.45);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      padding: 1rem;
+    }
+
+    .expect-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .expect-modal {
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.35s ease;
+      box-shadow: 0 20px 60px rgba(58, 28, 28, 0.2);
+    }
+
+    .expect-overlay.open .expect-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .expect-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .expect-close:hover { color: var(--red); }
+
+    .expect-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+
+    .expect-byob {
+      font-family: 'Italiana', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 1.2rem;
+    }
+
+    .expect-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .expect-body .highlight {
+      color: var(--wine);
+      font-weight: 600;
+    }
+
     /* CTA Button */
     .cta-btn {
       opacity: 0;
@@ -501,7 +583,27 @@
     </div>
 
     <div class="cta-btn">
+      <button id="openExpect">The Details</button>
+    </div>
+
+    <div class="cta-btn" style="animation-delay: 3.3s; margin-top: -0.5rem;">
       <button id="openModal">Request Your Toppings</button>
+    </div>
+  </div>
+
+  <!-- What to expect modal -->
+  <div class="expect-overlay" id="expectOverlay">
+    <div class="expect-modal">
+      <button class="expect-close" id="closeExpect">&times;</button>
+      <div class="expect-title">What to Expect</div>
+      <div class="expect-body">
+        Get ready for a fun night filled with pizza, wine, and a good time! 🍕🍷✨
+        <br><br>
+        We'll provide the dough, sauce, and toppings so everyone can
+        build their own pizza. Let us know your topping preferences
+        using the button below. Feel free to bring your favorite
+        beverage, and we'll take care of the rest!
+      </div>
     </div>
   </div>
 
@@ -535,6 +637,11 @@
 
     // TODO: Replace with your Google Apps Script web app URL
     const FORM_URL = 'https://script.google.com/macros/s/AKfycbxzAulG53WRUdfwKIC2cydz9TC-QYm2UMk2An_jhESrJfJW68s9-6BXLzZ5A5-tAoYw/exec';
+
+    const expectOverlay = document.getElementById('expectOverlay');
+    document.getElementById('openExpect').addEventListener('click', () => expectOverlay.classList.add('open'));
+    document.getElementById('closeExpect').addEventListener('click', () => expectOverlay.classList.remove('open'));
+    expectOverlay.addEventListener('click', e => { if (e.target === expectOverlay) expectOverlay.classList.remove('open'); });
 
     const overlay = document.getElementById('modalOverlay');
     document.getElementById('openModal').addEventListener('click', () => overlay.classList.add('open'));
