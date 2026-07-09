@@ -4,124 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pizza Night — You're Invited!</title>
-  <meta name="description" content="You're invited to Pizza Night! Saturday 7/11/26 at 5:30 PM, hosted by Raynah.">
+  <meta name="description" content="You're invited to Pizza Night! Saturday 7/11/26 at 5:30 PM.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Righteous&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Italiana&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --neon-red: #ff3c3c;
-      --neon-green: #39ff14;
-      --neon-yellow: #ffe14d;
-      --neon-pink: #ff6eb4;
-      --dark-bg: #1a0a0a;
-      --dark-surface: #2a1212;
-      --cream: #fff5e6;
-      --check-red: #c0392b;
-      --check-white: #f5e6d3;
+      --red: #c0392b;
+      --red-light: #d4564a;
+      --cream: #faf6f0;
+      --cream-dark: #f0e8dc;
+      --wine: #722f37;
+      --text: #3a1c1c;
+      --text-light: #8a6a6a;
     }
 
     body {
-      background: var(--dark-bg);
-      color: var(--cream);
-      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Floating pizza slices */
-    .pizza-float {
+    /* Corner illustrations */
+    .corner-art {
       position: fixed;
       z-index: 0;
-      opacity: 0.08;
       pointer-events: none;
-      animation: floatUp linear infinite;
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(110vh) rotate(0deg);
-        opacity: 0;
-      }
-      10% { opacity: 0.08; }
-      90% { opacity: 0.08; }
-      100% {
-        transform: translateY(-10vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Checkered border */
-    .checkered-border {
-      width: 100%;
-      height: 24px;
-      background: repeating-conic-gradient(
-        var(--check-red) 0% 25%, var(--check-white) 0% 50%
-      ) 0 0 / 24px 24px;
+    .corner-art.top-left {
+      top: -20px;
+      left: -20px;
+      width: min(320px, 45vw);
+      height: auto;
       opacity: 0;
-      animation: fadeSlideIn 0.8s ease forwards;
-      animation-delay: 0.3s;
+      animation: cornerFade 1.2s ease forwards 0.2s;
     }
 
-    .checkered-border.bottom {
-      animation-delay: 2.5s;
+    .corner-art.bottom-right {
+      bottom: -20px;
+      right: -20px;
+      width: min(300px, 42vw);
+      height: auto;
+      opacity: 0;
+      animation: cornerFade 1.2s ease forwards 0.6s;
+    }
+
+    @keyframes cornerFade {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     /* Main container */
     .container {
       position: relative;
       z-index: 1;
-      max-width: 640px;
+      max-width: 560px;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 5rem 2rem;
       text-align: center;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
-    }
-
-    /* Neon sign frame */
-    .neon-frame {
-      border: 3px solid rgba(255, 60, 60, 0.3);
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      position: relative;
-      box-shadow:
-        inset 0 0 30px rgba(255, 60, 60, 0.05),
-        0 0 30px rgba(255, 60, 60, 0.1);
-      animation: frameGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes frameGlow {
-      0% { box-shadow: inset 0 0 30px rgba(255, 60, 60, 0.05), 0 0 30px rgba(255, 60, 60, 0.1); }
-      100% { box-shadow: inset 0 0 40px rgba(255, 60, 60, 0.1), 0 0 50px rgba(255, 60, 60, 0.15); }
+      gap: 1.8rem;
     }
 
     /* "You're invited to" */
     .invite-text {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.6rem;
-      color: var(--neon-green);
-      text-shadow:
-        0 0 7px var(--neon-green),
-        0 0 20px var(--neon-green),
-        0 0 40px rgba(57, 255, 20, 0.4);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      color: var(--red);
       opacity: 0;
-      animation: glowIn 1s ease forwards;
-      animation-delay: 0.8s;
+      animation: softReveal 1s ease forwards 0.8s;
     }
 
-    @keyframes glowIn {
+    /* PIZZA NIGHT title */
+    .title {
+      font-family: 'Italiana', serif;
+      font-size: clamp(3.2rem, 14vw, 6.5rem);
+      font-weight: 400;
+      line-height: 0.95;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0;
+      animation: titleReveal 1.4s ease forwards 1.2s;
+    }
+
+    @keyframes titleReveal {
       0% {
         opacity: 0;
-        text-shadow: none;
-        transform: scale(0.9);
+        transform: scale(0.85);
+        letter-spacing: 0.2em;
       }
       60% {
         opacity: 1;
@@ -129,102 +112,87 @@
       }
       100% {
         opacity: 1;
-        text-shadow:
-          0 0 7px var(--neon-green),
-          0 0 20px var(--neon-green),
-          0 0 40px rgba(57, 255, 20, 0.4);
         transform: scale(1);
+        letter-spacing: 0.08em;
       }
     }
 
-    /* PIZZA NIGHT neon title */
-    .neon-title {
-      font-family: 'Righteous', cursive;
-      font-size: clamp(3rem, 10vw, 5.5rem);
-      line-height: 1.1;
-      color: var(--neon-red);
+    /* Decorative divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: softReveal 0.8s ease forwards 1.8s;
+    }
+
+    .divider-line {
+      width: 50px;
+      height: 1px;
+      background: var(--red-light);
+      opacity: 0.4;
+    }
+
+    .divider-icon {
+      color: var(--red);
+      opacity: 0.6;
+    }
+
+    /* Date */
+    .date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-shadow:
-        0 0 7px var(--neon-red),
-        0 0 20px var(--neon-red),
-        0 0 42px var(--neon-red),
-        0 0 80px rgba(255, 60, 60, 0.4);
+      color: var(--wine);
       opacity: 0;
-      animation: neonFlicker 2s ease forwards;
-      animation-delay: 1.2s;
+      animation: softReveal 0.7s ease forwards 2.1s;
     }
 
-    @keyframes neonFlicker {
-      0% { opacity: 0; text-shadow: none; }
-      10% { opacity: 0.8; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red); }
-      12% { opacity: 0.2; text-shadow: none; }
-      20% { opacity: 0.9; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red), 0 0 42px var(--neon-red); }
-      23% { opacity: 0.4; text-shadow: 0 0 7px var(--neon-red); }
-      35% { opacity: 1; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red), 0 0 42px var(--neon-red); }
-      37% { opacity: 0.7; text-shadow: 0 0 7px var(--neon-red), 0 0 20px var(--neon-red); }
-      40% {
-        opacity: 1;
-        text-shadow:
-          0 0 7px var(--neon-red),
-          0 0 20px var(--neon-red),
-          0 0 42px var(--neon-red),
-          0 0 80px rgba(255, 60, 60, 0.4);
-      }
-      100% {
-        opacity: 1;
-        text-shadow:
-          0 0 7px var(--neon-red),
-          0 0 20px var(--neon-red),
-          0 0 42px var(--neon-red),
-          0 0 80px rgba(255, 60, 60, 0.4);
-      }
-    }
-
-    /* Neon breathing after flicker */
-    .neon-title.on {
-      animation: neonBreathe 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes neonBreathe {
-      0% {
-        text-shadow:
-          0 0 7px var(--neon-red),
-          0 0 20px var(--neon-red),
-          0 0 42px var(--neon-red),
-          0 0 80px rgba(255, 60, 60, 0.4);
-      }
-      100% {
-        text-shadow:
-          0 0 10px var(--neon-red),
-          0 0 30px var(--neon-red),
-          0 0 60px var(--neon-red),
-          0 0 100px rgba(255, 60, 60, 0.5);
-      }
-    }
-
-    /* Divider line */
-    .neon-divider {
-      width: 120px;
-      height: 2px;
-      background: var(--neon-yellow);
-      box-shadow: 0 0 8px var(--neon-yellow), 0 0 20px rgba(255, 225, 77, 0.4);
-      margin: 0.5rem auto;
+    /* Time */
+    .time {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--red);
       opacity: 0;
-      animation: fadeSlideIn 0.6s ease forwards;
-      animation-delay: 2s;
+      animation: softReveal 0.7s ease forwards 2.4s;
     }
 
-    /* Event details */
-    .detail {
+    /* Address */
+    .address {
       opacity: 0;
-      animation: fadeSlideIn 0.7s ease forwards;
+      animation: softReveal 0.7s ease forwards 2.7s;
     }
 
-    @keyframes fadeSlideIn {
+    .address-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .address a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .address a:hover {
+      border-bottom-color: var(--red-light);
+    }
+
+    /* Soft reveal animation */
+    @keyframes softReveal {
       0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
       }
       100% {
         opacity: 1;
@@ -232,203 +200,137 @@
       }
     }
 
-    .detail-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: rgba(255, 245, 230, 0.5);
-      margin-bottom: 0.25rem;
+    /* Gentle floating for corner art after load */
+    .corner-art.loaded {
+      animation: gentleFloat 6s ease-in-out infinite alternate;
     }
 
-    .detail-value {
-      font-family: 'Righteous', cursive;
-      font-size: 1.3rem;
-      color: var(--neon-yellow);
-      text-shadow: 0 0 10px rgba(255, 225, 77, 0.3);
-    }
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .detail:nth-child(1) { animation-delay: 2.2s; }
-    .detail:nth-child(2) { animation-delay: 2.5s; }
-
-    /* Host section */
-    .host-section {
-      opacity: 0;
-      animation: fadeSlideIn 0.7s ease forwards;
-      animation-delay: 2.8s;
-    }
-
-    .hosted-by {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: rgba(255, 245, 230, 0.5);
-      margin-bottom: 0.3rem;
-    }
-
-    .host-name {
-      font-family: 'Pacifico', cursive;
-      font-size: 2.2rem;
-      color: var(--neon-pink);
-      text-shadow:
-        0 0 7px var(--neon-pink),
-        0 0 20px rgba(255, 110, 180, 0.4);
-    }
-
-    /* Address section */
-    .address-section {
-      opacity: 0;
-      animation: fadeSlideIn 0.7s ease forwards;
-      animation-delay: 3.1s;
-    }
-
-    .address-icon {
-      display: inline-block;
-      margin-bottom: 0.3rem;
-    }
-
-    .address-text {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: rgba(255, 245, 230, 0.8);
-    }
-
-    .address-text a {
-      color: rgba(255, 245, 230, 0.8);
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(255, 245, 230, 0.3);
-      transition: color 0.3s, border-color 0.3s;
-    }
-
-    .address-text a:hover {
-      color: var(--neon-yellow);
-      border-color: var(--neon-yellow);
-    }
-
-    /* Pizza SVG slice */
-    .pizza-svg {
-      fill: var(--neon-red);
-    }
-
-    /* Footer */
-    .footer-pizza {
-      opacity: 0;
-      animation: fadeSlideIn 0.7s ease forwards;
-      animation-delay: 3.4s;
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-
-    .footer-pizza span {
-      font-size: 1.5rem;
-      display: inline-block;
-      animation: wiggle 2s ease-in-out infinite;
-    }
-
-    .footer-pizza span:nth-child(2) { animation-delay: 0.3s; }
-    .footer-pizza span:nth-child(3) { animation-delay: 0.6s; }
-
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-8deg); }
-      75% { transform: rotate(8deg); }
+    @keyframes gentleFloat {
+      0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+      100% { opacity: 1; transform: translate(4px, -6px) rotate(1deg); }
     }
 
     /* Mobile */
     @media (max-width: 480px) {
-      .container { padding: 2rem 1rem; }
-      .neon-frame { padding: 2rem 1.2rem; }
-      .details-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .invite-text { font-size: 1.3rem; }
-      .host-name { font-size: 1.8rem; }
+      .container { padding: 4rem 1.5rem; gap: 1.5rem; }
+      .corner-art.top-left { width: min(220px, 55vw); }
+      .corner-art.bottom-right { width: min(200px, 50vw); }
     }
   </style>
 </head>
 <body>
 
-  <div class="checkered-border"></div>
+  <!-- Top-left corner art: pizza + ingredients -->
+  <svg class="corner-art top-left" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pizza -->
+    <ellipse cx="100" cy="100" rx="90" ry="85" stroke="var(--red)" stroke-width="2" fill="none"/>
+    <ellipse cx="100" cy="100" rx="80" ry="76" stroke="var(--red)" stroke-width="1" fill="none" opacity="0.3"/>
+    <!-- Slices -->
+    <line x1="100" y1="15" x2="100" y2="185" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+    <line x1="15" y1="85" x2="185" y2="115" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+    <!-- Toppings -->
+    <circle cx="70" cy="65" r="8" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="130" cy="75" r="7" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="85" cy="130" r="9" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="125" cy="135" r="6" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <!-- Basil leaves -->
+    <path d="M60 110 Q65 100 75 105 Q65 115 60 110Z" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <path d="M140 90 Q145 80 155 85 Q145 95 140 90Z" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <!-- Scattered tomatoes -->
+    <circle cx="210" cy="50" r="12" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="215" cy="45" r="4" stroke="var(--red)" stroke-width="1" fill="none"/>
+    <circle cx="230" cy="80" r="8" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <circle cx="250" cy="60" r="6" stroke="var(--red)" stroke-width="1" fill="none"/>
+    <!-- Wine glass -->
+    <path d="M270 30 Q260 60 260 80 L280 80 Q280 60 270 30Z" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <line x1="270" y1="80" x2="270" y2="110" stroke="var(--red)" stroke-width="1.5"/>
+    <line x1="258" y1="110" x2="282" y2="110" stroke="var(--red)" stroke-width="1.5"/>
+    <!-- Pepper -->
+    <path d="M200 140 Q195 120 210 115 Q215 130 200 140Z" stroke="var(--red)" stroke-width="1.3" fill="none"/>
+    <line x1="205" y1="115" x2="208" y2="105" stroke="var(--red)" stroke-width="1.2"/>
+    <!-- Small mushroom -->
+    <path d="M240 130 Q245 118 255 125 Q250 130 240 130Z" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <line x1="248" y1="130" x2="248" y2="140" stroke="var(--red)" stroke-width="1.2"/>
+    <!-- Cherry tomatoes cluster -->
+    <circle cx="180" cy="200" r="10" stroke="var(--red)" stroke-width="1.3" fill="none"/>
+    <circle cx="198" cy="195" r="9" stroke="var(--red)" stroke-width="1.3" fill="none"/>
+    <circle cx="190" cy="212" r="8" stroke="var(--red)" stroke-width="1.3" fill="none"/>
+    <path d="M185 190 Q190 178 195 185" stroke="var(--red)" stroke-width="1" fill="none"/>
+  </svg>
 
-  <!-- Floating pizza slices (generated by JS) -->
+  <!-- Bottom-right corner art: pizza slice + wine -->
+  <svg class="corner-art bottom-right" viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pizza with slices -->
+    <ellipse cx="210" cy="190" rx="80" ry="76" stroke="var(--red)" stroke-width="2" fill="none"/>
+    <ellipse cx="210" cy="190" rx="70" ry="66" stroke="var(--red)" stroke-width="1" fill="none" opacity="0.3"/>
+    <!-- Slice lines -->
+    <line x1="210" y1="114" x2="180" y2="264" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+    <line x1="135" y1="165" x2="285" y2="215" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+    <!-- Toppings -->
+    <circle cx="190" cy="165" r="7" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="235" cy="175" r="8" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="200" cy="215" r="6" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <circle cx="240" cy="210" r="7" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <!-- Basil -->
+    <path d="M220 200 Q225 190 235 195 Q225 205 220 200Z" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <path d="M175 195 Q180 185 190 190 Q180 200 175 195Z" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <!-- Wine bottle -->
+    <rect x="50" y="80" width="24" height="70" rx="4" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <rect x="56" y="60" width="12" height="22" rx="2" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <line x1="62" y1="55" x2="62" y2="60" stroke="var(--red)" stroke-width="1.5"/>
+    <path d="M53 100 L71 100" stroke="var(--red)" stroke-width="1" opacity="0.4"/>
+    <!-- Wine glass -->
+    <path d="M105 90 Q95 120 95 140 L115 140 Q115 120 105 90Z" stroke="var(--red)" stroke-width="1.5" fill="none"/>
+    <line x1="105" y1="140" x2="105" y2="170" stroke="var(--red)" stroke-width="1.5"/>
+    <line x1="93" y1="170" x2="117" y2="170" stroke="var(--red)" stroke-width="1.5"/>
+    <!-- Wine in glass -->
+    <path d="M98 120 Q105 125 112 120" stroke="var(--red)" stroke-width="1" opacity="0.4"/>
+    <!-- Olives -->
+    <ellipse cx="80" cy="210" rx="8" ry="6" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <ellipse cx="95" cy="220" rx="7" ry="5" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <circle cx="84" cy="208" r="2" stroke="var(--red)" stroke-width="0.8" fill="none"/>
+    <!-- Cheese wedge -->
+    <path d="M30 240 L60 220 L65 260 Z" stroke="var(--red)" stroke-width="1.3" fill="none"/>
+    <circle cx="45" cy="240" r="2" stroke="var(--red)" stroke-width="0.8" fill="none"/>
+    <circle cx="52" cy="248" r="1.5" stroke="var(--red)" stroke-width="0.8" fill="none"/>
+    <!-- Cherry tomatoes -->
+    <circle cx="120" cy="50" r="9" stroke="var(--red)" stroke-width="1.3" fill="none"/>
+    <circle cx="138" cy="55" r="7" stroke="var(--red)" stroke-width="1.2" fill="none"/>
+    <path d="M125 42 Q130 35 135 40" stroke="var(--red)" stroke-width="1" fill="none"/>
+  </svg>
 
   <div class="container">
-    <div class="neon-frame">
-      <p class="invite-text">You're invited to</p>
-      <h1 class="neon-title" id="neonTitle">Pizza<br>Night</h1>
-      <div class="neon-divider"></div>
+    <p class="invite-text">You're invited to</p>
+
+    <h1 class="title">Pizza<br>Night</h1>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <svg class="divider-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 3 Q8 12 8 17 A4 4 0 0 0 16 17 Q16 12 12 3Z"/>
+      </svg>
+      <div class="divider-line"></div>
     </div>
 
-    <div class="details-grid">
-      <div class="detail">
-        <div class="detail-label">When</div>
-        <div class="detail-value">Saturday<br>July 11, 2026</div>
-      </div>
-      <div class="detail">
-        <div class="detail-label">Time</div>
-        <div class="detail-value">5:30 PM</div>
-      </div>
-    </div>
+    <div class="date">Saturday, July 11, 2026</div>
 
-    <div class="host-section">
-      <div class="hosted-by">Hosted by</div>
-      <div class="host-name">Raynah</div>
-    </div>
+    <div class="time">5:30 PM</div>
 
-    <div class="address-section">
-      <div class="address-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--neon-yellow); filter: drop-shadow(0 0 4px rgba(255,225,77,0.4));">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-          <circle cx="12" cy="10" r="3"/>
-        </svg>
-      </div>
-      <div class="address-text">
-        <a href="https://maps.google.com/?q=4250+Woodlake+Place+%23109+Raleigh+NC+27607" target="_blank" rel="noopener">
-          4250 Woodlake Place #109<br>
-          Raleigh, NC 27607
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-pizza">
-      <span>&#127829;</span>
-      <span>&#127829;</span>
-      <span>&#127829;</span>
+    <div class="address">
+      <div class="address-label">Join us at</div>
+      <a href="https://maps.google.com/?q=4250+Woodlake+Place+%23109+Raleigh+NC+27607" target="_blank" rel="noopener">
+        4250 Woodlake Place #109<br>
+        Raleigh, NC 27607
+      </a>
     </div>
   </div>
 
-  <div class="checkered-border bottom"></div>
-
   <script>
-    // Switch neon title to breathing animation after flicker completes
-    const title = document.getElementById('neonTitle');
-    setTimeout(() => title.classList.add('on'), 3400);
-
-    // Generate floating pizza slice SVGs
-    function createFloatingPizza() {
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('viewBox', '0 0 60 60');
-      svg.classList.add('pizza-float');
-      svg.innerHTML = '<path d="M30 5 L55 50 Q30 45 5 50 Z" fill="#ff3c3c"/><circle cx="22" cy="35" r="3" fill="#ffe14d"/><circle cx="35" cy="30" r="3" fill="#ffe14d"/><circle cx="28" cy="22" r="2.5" fill="#ffe14d"/>';
-
-      const size = 30 + Math.random() * 50;
-      svg.style.width = size + 'px';
-      svg.style.height = size + 'px';
-      svg.style.left = Math.random() * 100 + 'vw';
-      svg.style.animationDuration = (15 + Math.random() * 25) + 's';
-      svg.style.animationDelay = Math.random() * 20 + 's';
-
-      document.body.appendChild(svg);
-    }
-
-    for (let i = 0; i < 12; i++) createFloatingPizza();
+    document.querySelectorAll('.corner-art').forEach(el => {
+      el.addEventListener('animationend', () => {
+        el.classList.add('loaded');
+      });
+    });
   </script>
 </body>
 </html>
